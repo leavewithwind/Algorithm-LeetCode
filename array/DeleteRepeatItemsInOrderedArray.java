@@ -83,5 +83,23 @@ public class DeleteRepeatItemsInOrderedArray {
         return pointerA + 1;
     }
 
+    /**
+     * Python解法
+     *     def removeDuplicates(self, nums: List[int]) -> int:
+     *         # Python不需要显式检查null（在Python中是None）。在Python中，空列表、空字符串、空字典等都被视为假值（Falsy），所以if not nums可以同时检查列表是否为None和列表是否为空。
+     *         # if nums is None or len(nums) == 0:
+     *         if not nums:
+     *             return 0
+     *
+     *         pointerFront = 0
+     *
+     *         for i in range(1, len(nums), 1):
+     *             if nums[pointerFront] != nums[i]:
+     *                 if i - pointerFront > 1:
+     *                     nums[pointerFront + 1] = nums[i]
+     *                 pointerFront += 1
+     *
+     *         return pointerFront + 1
+     */
 
 }

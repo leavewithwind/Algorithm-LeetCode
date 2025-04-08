@@ -34,7 +34,6 @@ public class DeleteRepeatItemsInOrderedArray2 {
             }
             pointerBack++;
         }
-        // nums[pointerFront + 1] = nums[nums.length-1];
 
         return pointerFront + 2;
     }

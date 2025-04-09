@@ -40,16 +40,17 @@ public class DeleteRepeatItemsInOrderedArray2 {
 
     /**
      * 比较符合场景的思路：栈
+     * 核心思路：用一个栈记录去重后的元素，如果当前元素等于栈顶下方那个数（倒数第二个数），那么不能入栈（否则会有三个一样的数），反之可以入栈。
      */
     public int removeDuplicates2(int[] nums) {
-        int i = 0;
-        for (int num : nums) {
-            if (i < 2 || num > nums[i - 2]) {
-                nums[i++] = num;
+        int stackSize = 2; // 栈的大小，前两个元素默认保留
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] != nums[stackSize - 2]) { // 和栈顶下方的元素比较
+                nums[stackSize] = nums[i]; // 入栈
+                stackSize++; // 栈大小加一
             }
         }
-
-        return i;
+        return Math.min(stackSize, nums.length);
     }
 
     /**
@@ -59,20 +60,40 @@ public class DeleteRepeatItemsInOrderedArray2 {
      *
      * 本质还是有序数组支持这么做，用i<2规避了数组报错问题和数据简单处理，前2次直接进来，第3次开始判断，第3位是不是比第1位大，理论上来说应该可以判断不同吧，然后进行赋值
      *
-     * 这样看nums就是快指针，而i是慢指针进行赋值可计数
+     * 这样看num就是快指针，而i是慢指针进行赋值可计数
      *
      * 本质是双指针的变形，不过想法还是无敌！
      *
-     * 我的理解是每个数字只保留两位+顺序比大小，太优美了！
+     * other: 我的理解是每个数字只保留两位+顺序比大小，太优美了！
      */
     public int removeDuplicates3(int[] nums) {
         int i = 0;
         for (int num : nums) {
             if (i < 2 || num > nums[i - 2]) {
-                nums[i++] = num;
+//                nums[i++] = num;
+                nums[i] = num;
+                i++;
             }
         }
 
         return i;
+    }
+
+    /**
+     * 自己的重写方法
+     */
+    public int removeDuplicates(int[] nums) {
+        if (nums.length < 2)
+            return nums.length;
+
+        int pointerSlow = 2;
+
+        for (int pointerFast = 2; pointerFast < nums.length; pointerFast++) {
+            if (nums[pointerFast] > nums[pointerSlow - 2]) {
+                nums[pointerSlow++] = nums[pointerFast];
+            }
+        }
+
+        return pointerSlow;
     }
 }

@@ -105,4 +105,15 @@ public class MostElement {
         return majority;
     }
 
+    /**
+     * Python版
+     *
+     *     def majorityElement(self, nums: List[int]) -> int:
+     *         vote = 0
+     *         for num in nums:
+     *             if vote == 0: majority = num
+     *             vote += 1 if num == majority else -1
+     *         return majority
+     */
+
 }

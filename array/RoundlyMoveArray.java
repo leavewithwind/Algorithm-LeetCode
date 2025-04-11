@@ -113,4 +113,43 @@ public class RoundlyMoveArray {
         }
     }
 
+    /**
+     * python实现
+     *
+     *     def rotate(self, nums: List[int], k: int) -> None:
+     *         """
+     *         Do not return anything, modify nums in-place instead.
+     *         """
+     *         def reverseArray(array: List[int], start: int, end: int) -> None:
+     *             while start < end:
+     *                 temp = array[start]
+     *                 array[start] = array[end]
+     *                 array[end] = temp
+     *                 start += 1
+     *                 end -= 1
+     *
+     *         n = len(nums)
+     *         k %= n
+     *         reverseArray(nums, 0, n -1)
+     *         reverseArray(nums, 0, k -1)
+     *         reverseArray(nums, k, n -1)
+     */
+
+
+    /**
+     * 更快的Python实现
+     *
+     *     def rotate(self, nums: List[int], k: int) -> None:
+     *         def reverse(i: int, j: int) -> None:
+     *             while i < j:
+     *                 nums[i], nums[j] = nums[j], nums[i]
+     *                 i += 1
+     *                 j -= 1
+     *
+     *         n = len(nums)
+     *         k %= n  # 轮转 k 次等于轮转 k % n 次
+     *         reverse(0, n - 1)
+     *         reverse(0, k - 1)
+     *         reverse(k, n - 1)
+     */
 }

@@ -24,10 +24,96 @@ package array;
  */
 public class BestTimeToBuyStock {
 
-    class Solution {
+    /**
+     * 暴力算法
+     * 时间复杂度：O(n^2)。循环运行 n*(n-1)/2次
+     * 空间复杂度：O(1)。只使用了常数个变量。
+     */
+    class Solution1 {
         public int maxProfit(int[] prices) {
-            return 0;
+            int profit = 0;
+            for (int i = 0; i < prices.length; i++) {
+                for (int j = i + 1; j < prices.length; j++) {
+                    // profit = ((prices[j] - prices[i]) > profit) ? prices[j] - prices[i] : profit;
+                    if ((prices[j] - prices[i]) > profit){
+                        profit = prices[j] - prices[i];
+                    }
+                }
+            }
+            return profit;
 
         }
     }
+
+    /**
+     * 方法二：一次遍历
+     * 并不是求全局历史最低点，而是每次都假设是今天卖出，然后根据今天之前的历史最低点计算最大利润。而这个历史最低点并不需要额外遍历，而是每天考虑的时候顺带记录的。因此时间复杂度还是O(N)而不是O(N^2)。
+     */
+    public class Solution2 {
+        public int maxProfit(int prices[]) {
+            int minprice = Integer.MAX_VALUE;
+            int maxprofit = 0;
+            for (int i = 0; i < prices.length; i++) {
+                if (prices[i] < minprice) {
+                    minprice = prices[i];
+                } else if (prices[i] - minprice > maxprofit) {
+                    maxprofit = prices[i] - minprice;
+                }
+            }
+            return maxprofit;
+        }
+    }
+
+    /**
+     * 官方Python题解，用时长
+     *
+     * class Solution:
+     *     def maxProfit(self, prices: List[int]) -> int:
+     *         minprice = int(1e9)
+     *         maxprofit = 0
+     *         for price in prices:
+     *             maxprofit = max(price - minprice, maxprofit)
+     *             minprice = min(price, minprice)
+     *         return maxprofit
+     */
+
+    /**
+     * 根据方法二思路的重写
+     */
+    class Solution3 {
+        public int maxProfit(int[] prices) {
+            int maxProfit = 0;
+            int minPrice = Integer.MAX_VALUE;
+
+            for (int price : prices){
+                if (price < minPrice){
+                    minPrice = price;
+                }else{
+                    int currentProfit = price - minPrice;
+                    maxProfit = maxProfit > currentProfit ? maxProfit:currentProfit;
+                }
+            }
+            return maxProfit;
+        }
+    }
+
+
+    /**
+     * 我的Python实现，更优
+     *
+     *     def maxProfit(self, prices: List[int]) -> int:
+     *         minPrice = int (1e9)
+     *         profit = 0
+     *
+     *         for price in prices:
+     *             if price < minPrice:
+     *                 minPrice = price
+     *             else:
+     *                 currentProfit = price - minPrice
+     *                 profit = currentProfit if currentProfit > profit else profit
+     *                 # profit = max(profit, currentProfit) # 耗时长
+     *
+     *         return profit
+     */
+
 }
